@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>JS Uses</h1>
+
+    <button onclick="onClick()">Press Me</button>
+    <button onclick="setMessage(new Date())">Set Message</button>
+
+    <div id="message"></div>
+
+    <script>
+
+        // what do we use JS for??
+
+        // 1. Event Handling
+        function onClick() {
+            alert("hello");
+        }
+
+        // 2. DOM Manipulation
+        function setMessage(message) {
+            element = document.getElementById("message");
+            element.innerHTML = message;
+        }
+
+        // 3. AJAX Calls - get data from external web requests
+
+        
+
+    </script>
+</body>
+</html>

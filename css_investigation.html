@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        /* style using a tag
+        div {
+            width: 100px;
+            height: 100px;
+            background-color: lightcoral;
+            border: 1px solid black;
+        }
+            */
+        /*
+        style using an id (#)
+        #box1, #box2, #box3 {
+            width: 100px;
+            height: 100px;
+            background-color: lightcoral;
+            border: 1px solid black;
+        }
+        */
+
+        /* style using a class */
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: lightcoral;
+            border: 1px solid black;            
+        }
+
+        .title {
+            background-color: lightgreen;
+            font-size: 30px;
+            font-weight: bold;
+            height: 50px;
+            text-align: center;
+        }
+
+        /* style using a combination */
+
+        div>.box {
+            background-color: lightblue;
+        }
+
+        .subsection>h2 {
+            color: red;
+        }
+
+        /* style using pseudo class */
+        .itemlist {
+            font-family:'Times New Roman', Times, serif;
+            background-color: lightgreen;
+            color: navy;
+        }
+
+        .itemlist li:nth-child(3) {
+            color: red;
+        }
+
+        .box:hover {
+            background-color: yellow;
+        }
+
+        /*
+        font family is inherited
+        body {
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+            */
+
+        .datatable {
+            border: 1px solid black;
+            width: 90%;
+        }
+
+        .datatable thead {
+            font-weight: bold;
+            background-color: lightgreen;
+        }
+
+        .datatable tbody tr:nth-child(even) {
+            background-color: lightblue;
+        }
+        .datatable tbody tr:nth-child(odd) {
+            background-color: lightcyan;
+        }
+
+        /* style using a pseudo element */
+        .info {
+            color: red;
+        }
+        .info::selection {
+            background-color:yellow;
+        }
+
+        .info::first-letter {
+            font-size: 20px;
+        }
+    
+        .info::before {
+            content: "\"";
+        }
+        .info::after {
+            content: "\"";
+        }
+
+        /* pseudo element */
+        .quotation::before {
+            content: "\"";
+        }
+        .quotation::after {
+            content: "\"";
+        }
+
+    </style>
+</head>
+<body>
+
+
+
+
+    <div id="title" class="title">
+        <h2>Title Section (not a box)</h2>
+    </div>
+
+    <p class="quotation">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas mollitia molestias sed tenetur ex non explicabo velit repellendus ut ipsa optio, quae ipsam eum consequuntur dolorem sit. Repellendus, sapiente. Minima.</p>
+    <p class="quotation">Incidunt perferendis illum, dolor soluta rem odit cumque dolorum odio enim similique quia debitis amet quaerat, eius totam, dignissimos dolores. Porro omnis ratione perferendis. Ipsa voluptas quibusdam maxime laboriosam odio.</p>
+    <p class="quotation">At voluptatibus alias minus est! Quasi harum quas quod aliquid libero! Sint modi nisi eaque iusto numquam itaque animi maxime tenetur quos, voluptatibus, nostrum illum repellendus laboriosam quidem labore ipsum.</p>
+    <p class="quotation">Repellendus ducimus odit similique pariatur iste sed aperiam totam suscipit doloribus. Quae atque repellendus distinctio saepe sapiente id laboriosam voluptatum suscipit in eos deleniti et neque, asperiores porro officiis impedit.</p>
+    <p class="quotation">Architecto repellat inventore eius voluptates totam, autem voluptas recusandae dignissimos beatae praesentium, amet asperiores quia illo excepturi? Nulla iste sint sunt atque unde, illum at ullam aut eum obcaecati? Voluptates.</p>
+
+    <p class="info">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Doloribus corporis quo consequatur nemo recusandae adipisci sapiente? Necessitatibus debitis numquam dolores, tenetur est, soluta aliquid dolorum in harum, rerum impedit perferendis!</p>
+
+
+
+    <div id="box1" class="box">Box 1</div>
+    <div id="box2" class="box">Box 2</div>
+    <div id="box3" class="box">Box 3</div>
+
+    <!-- div*3>{Box $} -->
+
+    <div class="subsection">
+        <h2>Subsection</h2>
+        <div id="box4" class="box">Box 4</div>
+    </div>
+
+    <ul class="itemlist">
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+        <li>Item 4</li>
+        <li>Item 5</li>
+    </ul>
+
+    <table class="datatable">
+        <thead>
+            <tr>
+                <td>Number</td>
+                <td>Name</td>
+                <td>Email</td>
+                <td>Active</td>
+                <td>Count</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Item 1</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Item 2</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Item 3</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Item 4</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Item 5</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Item 6</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Item 7</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Item 8</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Item 9</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Item 10</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

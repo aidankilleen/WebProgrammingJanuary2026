@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Ajax Introduction</h1>
+
+    <button onclick="getData()">Get Members</button>
+
+    <table id="tblUsers">
+        <thead>
+            <tr>
+                <td>Id</td>
+                <td>Name</td>
+                <td>Email</td>
+                <td>Active</td>
+            </tr>
+        </thead>
+        <tbody id="tblUsersBody"></tbody>
+    </table>
+
+    <script>
+
+        function getData() {
+
+            // make an XMLHTTPRequest call for the data
+            let url = "https://api.acodingtutor.com/members";
+            let xhr = new XMLHttpRequest();
+
+            xhr.open("GET", url, true);
+
+            xhr.onerror = function() {
+                alert("something went wrong");
+            }
+
+            xhr.onload = function() {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    let data = JSON.parse(xhr.responseText);
+                    console.log(data);
+                    tbody = document.getElementById("tblUsersBody");
+                    // clear the table 
+                    tbody.innerHTML = "";
+
+                    for (let i=0; i<data.length; i++) {
+                        console.log(data[i]);
+
+                        // add this user to the table
+                        let tr = `<tr>
+                                    <td>${data[i].id}</td>
+                                    <td>${data[i].name}</td>
+                                    <td>${data[i].email}</td>
+                                    <td>${data[i].active ? "Active" : "Inactive"}</td>
+                                  </tr>`
+                        tbody.innerHTML += tr;
+                    }
+                }
+            }
+            xhr.send();
+        }
+    </script>
+
+
+</body>
+</html>
