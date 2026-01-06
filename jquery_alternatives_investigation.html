@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Removing JQuery Investigation</h1>
+
+    <img src="https://picsum.photos/200/300">
+
+    <button id="btnTest">Press Me</button>
+
+    <table id="tblMembers" class="thead">
+        <thead>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Email</td>
+            <td>Active</td>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <div class="box" id="box1">Box 1</div>
+    <div class="box" id="box2">Box 2</div>
+    <div class="box" id="box3">Box 3</div>
+    <div class="box" id="box4">Box 4</div>
+    <div class="box" id="box5">Box 5</div>
+
+
+    <!--<script src="members.js"></script>-->
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script>
+        let members = [];
+        let url = "https://api.acodingtutor.com/members";
+        // $ is the alias for jQuery 
+        //$(document).ready(function() {
+
+        document.addEventListener("DOMContentLoaded", ()=> {
+            // this function is called when page read to display
+            //alert();
+
+            // select an item from the page
+            //$('h1').html("JQuery Changed This");
+            document.querySelector('h1').innerHTML = "Vanilla JS Changed this";
+
+
+
+
+            $('#btnTest').on("click", (evt) => {
+                // get the data using an ajax call
+                //$.getJSON(url, data => populateTable(data));
+
+                fetch(url)
+                .then(response=>{
+                    return response.json()
+                })
+                .then(data=>populateTable(data));
+
+            })
+
+            /*
+            $('.box').on("click", evt => {
+                alert(evt.target.id);
+            })
+            */
+
+            document.querySelectorAll('.box')
+                .forEach(box => 
+                    box.addEventListener("click", evt => {
+                        alert(evt.target.id);
+                }));
+
+        });
+
+        function populateTable(memberList) {
+            console.log("populating member table");
+            $('#tblMembers tbody').empty();
+            memberList.forEach(member => {
+                $('#tblMembers tbody').append(`<tr>
+                    <td>${member.id}</td>
+                    <td>${member.name}</td>
+                    <td>${member.email}</td>
+                    <td>${member.active ? "Active" : "Inactive"}</td>
+                    </tr>`)
+            });
+
+        }
+
+
+
+
+    </script>
+</body>
+</html>
