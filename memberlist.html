@@ -8,13 +8,17 @@
 <body>
     <h1>Member List</h1>
 
+    <input type="radio" name="activeFilter" value="active">Active
+    <input type="radio" name="activeFilter" value="inactive">Inactive
+    <input type="radio" name="activeFilter" value="both">Both
+
     <table id="tblMembers">
         <thead>
             <tr>
-                <td>Id</td>
-                <td>Name</td>
+                <td>Id   <span class="btnSort" id="btnSortById">▲</span></td>
+                <td>Name <span class="btnSort" id="btnSortByName">▲</span></td>
                 <td>Email</td>
-                <td>Active</td>
+                <td>Active <span class="btnSort" id="btnSortByActive">▲</span></td>
             </tr>
         </thead>
         <tbody></tbody>
@@ -25,11 +29,90 @@
     <script>
         console.log(members);
 
-        members.forEach(member => {
-            console.log(member);
+        function populateTable(memberList) {
+     
+            let html = "";
+            let trs = memberList.map(member => `<tr>
+                            <td>${member.id}</td>
+                            <td>${member.name}</td>
+                            <td>${member.email}</td>
+                            <td>${member.active ? "Active" : "Inactive"}</td>
+                            </tr>`);
 
-            let tr = `<tr></tr>`
+            // reducing the number of DOM queries will improve performance
+            let tbody = document.querySelector("#tblMembers tbody");
+            tbody.innerHTML = trs.join("");
+        }
+
+        let filteredList = members;
+
+        populateTable(filteredList);
+
+        // set up event handler for the radio buttons
+        document.querySelectorAll('input[name="activeFilter"]').forEach(radio=>{
+
+            radio.addEventListener("change", (evt)=>{
+                if (evt.target.value == "both") {
+                    filteredList = members;
+                } else {
+                    filteredList = members.filter(
+                        member => 
+                            evt.target.value=="active"
+                            ? member.active
+                            : !member.active);
+                    
+                }
+                populateTable(filteredList);
+            });
         });
+
+        // goal - create a single event handler for all of the sort buttons
+        document.querySelectorAll('.btnSort').forEach(btn=>{
+            btn.addEventListener("click", (evt) => {
+
+                let sortFn;
+                if (evt.target.id == "btnSortById") {
+                    sortFn = (a, b)=>a.id-b.id;
+                } else if (evt.target.id == "btnSortByName") {
+                    sortFn = (a, b) => a.name.localeCompare(b.name);
+                } else if (evt.target.id == "btnSortByActive") {
+                    sortFn = (a, b) => a.active - b.active;
+                }
+                filteredList.sort(sortFn);
+
+                if (evt.target.textContent == "▲") {
+                    evt.target.textContent = "▼";
+                    filteredList.reverse();
+                } else {
+                    evt.target.textContent = "▲";
+                }
+                populateTable(filteredList);
+            });
+        })
+        /*
+        // add in the sort event handler
+        document.getElementById("btnSortById").addEventListener("click", (evt) => {
+            if (evt.target.textContent == "▲") {
+                evt.target.textContent = "▼";
+                filteredList.sort((a, b)=>b.id-a.id);
+            } else {
+                evt.target.textContent = "▲";
+                filteredList.sort((a, b)=>a.id-b.id);
+            }
+            populateTable(filteredList);
+        });
+
+        document.getElementById("btnSortByName").addEventListener("click", (evt) => {
+            if (evt.target.textContent == "▲") {
+                evt.target.textContent = "▼";
+                filteredList.sort((a, b) => b.name.localeCompare(a.name));
+            } else {
+                evt.target.textContent = "▲";
+                filteredList.sort((a, b) => a.name.localeCompare(b.name));
+            }
+            populateTable(filteredList);
+        });
+        */
     </script>
 
 </body>

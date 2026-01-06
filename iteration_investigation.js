@@ -106,6 +106,45 @@ console.log(activeMembers);
 activeMembers.sort((a, b) => b.name.localeCompare(a.name));
 console.log(activeMembers);
 
+// map
+
+// convert each item in the list 
+let doubled = list.map(item => item * 2);
+
+console.log(list);
+console.log(doubled);
+
+
+// go through the list of members 
+let gdprList = members.map((member) => {
+
+    return {
+        name: member.name,
+        email: "****@****.com"
+    }
+});
+
+console.log(gdprList);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
