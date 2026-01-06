@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Arrow Function Investigation</h1>
+
+
+    <script>
+
+        console.log("is this working?");
+
+        function showMessage(message = "Default Message") {
+
+            console.log(`The message is: ${message}`);
+        }
+
+        showMessage("Standard Function");
+
+        // don't call the function, just pass the function name
+        // setTimeout(showMessage("some message"), 5000);
+        setTimeout(showMessage, 5000);
+
+        // it is really common to have functions passed as a parameter
+
+        setTimeout(function () {
+            console.log("declaring functions inline");
+            console.log("note the there is no function name - anonymous function")
+        }, 6000);
+
+        // in 2016 arrow functions were added
+        // function keyword omitted
+        // arrow => indicates a function
+        // {} are the body of the function
+        setTimeout(() => {
+            console.log("Arrow functions are (almost) identical to regular functions");
+            console.log("a lot of people just view it as a convenient abbreviation of the function syntax");
+        }, 7000);
+
+
+        // you can give an arrow function a name by assigning it to a variable
+        let displayMessage = (message = "Default Message") => {
+            console.log(`Message: ${message}`);
+        }
+        displayMessage("named arrow function");
+
+        let sm = showMessage;
+        sm("showMessage called using a variable name");
+        
+
+
+    </script>
+</body>
+</html>
