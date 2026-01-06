@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+        .body {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+        }
+        .header {
+            flex-basis: 15vh;
+            background-color: lightgreen;
+        }
+        .container {
+            /*
+            flex-basis: 70vh;
+            flex-grow: 1;
+            flex-shrink: 1;
+            */
+            flex: 70vh 1 1;
+
+            /* these two flex properties are not related to the flex: property above */
+            display: flex;
+            flex-direction: row;
+        }
+        .left {
+            flex: 20% 0 1;
+            background-color: lightblue;
+        }
+        .main {
+            flex: 70% 1 1;
+            background-color: lightgray;
+        }
+        .right {
+            flex: 10% 1 1;
+            background-color: lightblue;
+        }
+
+        .footer {
+            flex-basis: 15vh;
+            background-color: lightgreen;
+        }
+
+
+        @media (max-width:768px) {
+
+            .container {
+                flex-direction: column;
+            }
+        }
+ 
+    </style>
+</head>
+<body class="body">
+    <div id="header" class="header">Header</div>
+    <div id="container" class="container">
+        <div id="left" class="left">Left</div>
+        <div class="main" id="main">
+
+            <h1>Flexbox 3 Column Layout</h1>
+
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi tempore nesciunt accusamus dicta alias ab quibusdam sapiente minus libero. Doloribus commodi sunt ex soluta inventore ducimus voluptates delectus sapiente porro!</p>
+            <p>Reiciendis unde cum error quidem perspiciatis reprehenderit? Facere totam laboriosam delectus ad velit, cumque impedit adipisci officia eius id? Provident, maxime. Velit numquam in, consequuntur esse possimus rem nam eum.</p>
+            <p>Doloremque nesciunt inventore error deserunt hic ullam illo laudantium qui? Ab voluptatem impedit, labore illum cum odit! Voluptatem ratione delectus praesentium vero, laborum doloremque ex eius excepturi exercitationem sed sunt.</p>
+            <p>Fuga facere at dolore expedita quidem cupiditate excepturi tempore, ea adipisci sit? Obcaecati blanditiis voluptatum delectus ducimus temporibus voluptate, nulla quod ab non. Facilis expedita delectus, pariatur ut laboriosam quidem!</p>
+            <p>Debitis deserunt adipisci laudantium quaerat magnam maiores dignissimos soluta obcaecati officia. Vel, ipsam quisquam a tenetur cupiditate doloremque, asperiores velit eum ipsa voluptate amet quos fuga earum, perferendis harum doloribus!</p>
+            <p>Reiciendis, iure. Asperiores molestiae itaque temporibus corporis doloremque dolore dicta magnam facilis ipsum reprehenderit aliquid libero soluta sint fugit corrupti recusandae omnis ab quos eligendi, repudiandae illo a. Corporis, nobis.</p>
+            <p>Nobis a dicta, minus saepe hic quae error, laboriosam rem, nam fuga quibusdam harum similique enim. Rem, eveniet, earum architecto tempora iste quas dolor consequuntur provident sit iure reprehenderit eligendi.</p>
+            <p>Repellat, quo? Laborum, eius porro consequuntur optio, sequi minima praesentium exercitationem eligendi officia ad voluptatem magni veniam. Hic ea ipsum sed. Architecto sit facere vitae aspernatur fugit tenetur aut dolores.</p>
+            <p>Ab, dolor inventore delectus cumque explicabo nemo repellat animi corporis sed accusamus culpa qui iusto esse dicta nesciunt? Consequuntur doloribus tenetur veritatis minima asperiores magni nemo obcaecati totam ullam reprehenderit.</p>
+            <p>Voluptates nesciunt qui eligendi saepe aperiam dolores accusamus autem quaerat. Nisi consectetur vero aperiam eaque ipsum delectus laborum, molestiae repudiandae incidunt voluptates dolorem dignissimos sunt adipisci. Consectetur tempore totam porro.</p>
+        </div>
+        <div class="right" id="right">Right</div>
+    </div>
+    <div class="footer" id="footer">Footer</div>
+
+</body>
+</html>

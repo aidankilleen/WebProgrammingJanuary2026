@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .body {
+            margin: 0;
+        }
+        .header {
+            width: 100%;
+            height: 15vh;
+            background-color: lightgreen;
+        }
+
+        .left {
+            width: 20%;
+            height: 70vh;
+            background-color: lightblue;
+            float: left;
+        }
+        
+        .main {
+            width: 70%;
+            height: 70vh;
+            background-color: lightgray;
+            float: left;
+            overflow: auto;
+        }
+        .right {
+            width: 10%;
+            height: 70vh;
+            background-color: lightblue;
+            float: left;
+        }
+        .footer {
+            width: 100%;
+            height: 15vh;
+            background-color: lightgreen;
+            float: left;
+
+        }
+
+        @media (max-width:768px) {
+            
+            .left {
+                width: 100%;
+                height: auto;
+            }
+            .main {
+                width: 100%;
+                height: auto;
+            }
+            .right {
+                width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body class="body">
+
+
+    <div id="header" class="header">Header</div>
+    <div id="left" class="left">Left</div>
+    <div class="main" id="main">
+        
+        <h2>CSS Layout Investigation</h2>
+
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero, quas, aut ab corporis esse possimus maxime deserunt commodi consequatur neque necessitatibus id atque? Quisquam quia voluptate, aspernatur cumque facilis numquam.</p>
+        <p>Quas, excepturi. Saepe, fuga voluptatum. Quae et quas a. Exercitationem animi ad itaque similique ab officiis modi laudantium sapiente ipsa nostrum sed possimus magni nisi, assumenda magnam quasi distinctio quae!</p>
+        <p>Nam, iure perferendis dolore sint necessitatibus, officiis nesciunt alias excepturi sit esse optio consequatur facilis ab iste culpa, quia delectus dolorum impedit. Earum delectus, vero porro cum quaerat obcaecati alias!</p>
+        <p>Aspernatur animi iste consectetur odio architecto velit quo minus, modi in sit omnis quas labore repudiandae veritatis hic nobis tenetur earum sequi? Maxime hic nemo tenetur quaerat culpa dolore tempora?</p>
+        <p>Corporis assumenda possimus repudiandae et architecto voluptatem harum quia, beatae perferendis debitis ex, veniam itaque ad? Voluptatum, quasi nisi beatae dolor laborum, asperiores illo quo illum laboriosam dignissimos, ea iste!</p>
+        <p>Maxime quod excepturi explicabo consectetur, laborum quibusdam eaque vero. Nulla eos et libero corrupti? Laborum quam nesciunt deserunt assumenda atque dolore cupiditate provident officiis illum, in eveniet eaque aspernatur? Ducimus.</p>
+    </div>
+    <div class="right" id="right">Right</div>
+    <div class="footer" id="footer">Footer</div>
+
+</body>
+</html>
