@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .w3-modal {
+            width: 100%;
+            height: 100vh;
+            position: absolute;
+            background: rgba(0, 0, 0, 0.7);
+            top: 0;
+            left:0;
+            align-items: center;
+            justify-content: center;
+            display: none;
+
+        }
+        .w3-modal-content {
+            width: 60%;
+            height: 20vh;
+            background-color: lightgray;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>CSS Modal</h1>
+
+    <input id="txtCount">
+    <button id="btnStart" onclick="count()">Start</button>
+    <button id="btnStop" onclick="stop()" style="display:none">Stop</button>
+
+    <hr>
+    <button id="btnShowAlert">Show Alert</button>
+    <button id="btnShowModal">Show Modal</button>
+
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur est, soluta praesentium deleniti provident dolore amet cumque autem animi nihil reprehenderit nulla similique, vel itaque aspernatur laboriosam. Nam, distinctio sapiente!</p>
+    <p>Dolorum earum et deserunt debitis laborum incidunt, neque fugiat magnam iusto unde ex dicta facere soluta? Incidunt numquam dolores expedita iste quas assumenda illum! Qui voluptate quos eius aperiam libero.</p>
+    <p>Debitis neque fugit fuga sapiente voluptatem atque eos delectus dolores esse, exercitationem voluptas ad omnis quidem consequuntur voluptates excepturi. Similique accusamus voluptates reprehenderit rem fugiat, debitis earum quia perspiciatis quae?</p>
+    <p>Suscipit consequatur quia voluptas nostrum iste, aliquid maiores aperiam molestias sapiente? Expedita odit molestiae exercitationem sed earum at! Sequi impedit consectetur modi distinctio unde incidunt odit. Eaque voluptatem delectus consectetur.</p>
+    <p>Consequatur totam minima minus magnam, obcaecati deserunt laborum explicabo maxime earum quis iste, cumque nisi nam mollitia magni enim nemo perferendis, quo maiores alias perspiciatis repudiandae consectetur nostrum similique. Reprehenderit!</p>
+
+    <div id="id01" class="w3-modal" onclick="showDialog(false)">
+        <div class="w3-modal-content">
+            <div class="w3-container">
+            <span onclick="showDialog(false)"
+            class="w3-button w3-display-topright">&times;</span>
+            <p>Some text in the Modal..</p>
+            <p>Some text in the Modal..</p>
+            <button>Ok</button>
+            <button onclick="showDialog(false)">Cancel</button>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        let counter = 0;
+        let timerId;
+        function count() {
+            document.getElementById("btnStart").style.display="none";
+            document.getElementById("btnStop").style.display="inline";
+            timerId = setInterval(()=>{
+                document.getElementById("txtCount").value = `${counter++}`;
+            }, 100);
+        }
+        function stop() {
+            document.getElementById("btnStart").style.display="inline";
+            document.getElementById("btnStop").style.display="none";
+            clearInterval(timerId);
+        }
+
+        document.getElementById("btnShowAlert")
+            .addEventListener("click", evt => {
+                alert("show alert");
+            });
+        document.getElementById("btnShowModal")
+            .addEventListener("click", evt => {
+                showDialog(true);
+            });
+        function showDialog(visible) {
+            document.getElementById('id01')
+                    .style.display = visible ? "flex" : "none";
+        }
+    </script>
+</body>
+</html>

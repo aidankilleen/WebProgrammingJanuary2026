@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .dlgInfo {
+            width: 60%;
+            height: 20vh;
+            border-radius: 5px;
+            background-color: lightblue;
+        }
+        .dlgInfo:empty {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>CSS Properties Investigation</h1>
+    <button id="btnMessage">Show Message</button>
+    <button id="btnHide">Hide Message</button>
+
+
+    <div id="dlgInfo" class="dlgInfo"></div>
+
+    <script>
+        document.getElementById("btnMessage")
+                .addEventListener("click", evt => {
+            
+                    document.getElementById("dlgInfo")
+                            .innerHTML=`This is a message<br>${new Date()}`;
+        });
+
+        document.getElementById("btnHide")
+                .addEventListener("click", evt => {
+                    //alert("is this working?");
+                    document.getElementById("dlgInfo")
+                            .innerHTML = "";
+                })
+    </script>
+</body>
+</html>

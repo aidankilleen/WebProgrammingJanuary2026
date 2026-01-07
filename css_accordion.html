@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #accordion {
+            border: 1px solid black;
+        }
+        #accordion label {
+            display: block;
+            padding: 10px;
+            background-color: lightgray;
+            font-weight: bold;
+            border: 1px solid black;
+        }
+        #accordion input[type=radio] {
+            display: none;
+        }
+        #accordion article {
+            height: 0px;
+            max-height: 0px;
+            overflow-y: hidden;
+            transition: all 500ms;
+        }
+        #accordion input:checked ~ article {
+            height: 150px;
+            max-height: 150px;
+        }
+    </style>
+</head>
+<body>
+    <h1>CSS Accordion</h1>
+
+    <div id="accordion">
+        <div class="accordion-panel">
+
+            <input type="radio" id="accordion-1" name="accordion" checked>
+            <label for="accordion-1">Panel 1</label>
+            <article>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis, perferendis quidem debitis veniam voluptas harum in quo, accusantium aliquid sit id itaque, sed dicta excepturi quasi. Eligendi obcaecati sequi qui!</p>
+            </article>
+        </div>
+        <div class="accordion-panel">
+
+            <input type="radio" id="accordion-2" name="accordion">
+            <label for="accordion-2">Panel 2</label>
+            <article>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis, perferendis quidem debitis veniam voluptas harum in quo, accusantium aliquid sit id itaque, sed dicta excepturi quasi. Eligendi obcaecati sequi qui!</p>
+            </article>
+        </div>
+        <div class="accordion-panel">
+            <input type="radio" id="accordion-3" name="accordion">
+
+            <label for="accordion-3">Panel 3</label>
+            <article>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis, perferendis quidem debitis veniam voluptas harum in quo, accusantium aliquid sit id itaque, sed dicta excepturi quasi. Eligendi obcaecati sequi qui!</p>
+            </article>
+        </div>
+
+    </div>
+
+</body>
+</html>
