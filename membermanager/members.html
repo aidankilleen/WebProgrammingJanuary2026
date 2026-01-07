@@ -86,12 +86,8 @@
         let members = [];
         let url = "https://api.acodingtutor.com/members";
 
-        function populateTable(memberList) {
-            console.log("populating member table");
-
-            //$('#tblMembers tbody').empty();
-            let trs = memberList.map(member => 
-                 `<tr id="tr_${member.id}">
+        function convertMemberToTR(member) {
+            return `<tr id="tr_${member.id}">
                     <td>${member.id}</td>
                     <td>${member.name}</td>
                     <td>${member.email}</td>
@@ -103,9 +99,32 @@
                             onclick="onDelete(event)">
                             Delete
                         </button>
+                        <button
+                            id="btnEdit_${member.id}"
+                            class="btn btn-warning btn-sm"
+                            onclick="onEdit(event)">
+                            Edit
+                        </button>
+                        <button
+                            id="btnEditSave_${member.id}"
+                            class="btn btn-success btn-sm"
+                            onclick="onEditSave(event)">
+                            Save
+                        </button>
+                        <button
+                            id="btnCancel_${member.id}"
+                            class="btn btn-secondary btn-sm"
+                            onclick="onCancel(event)">
+                            Cancel
+                        </button>
                     </td>
-                </tr>`
-                );
+                </tr>`;
+        }
+        function populateTable(memberList) {
+            console.log("populating member table");
+
+            //$('#tblMembers tbody').empty();
+            let trs = memberList.map(convertMemberToTR);
             document.querySelector('#tblMembers tbody').innerHTML = trs.join("");
         }
 
@@ -126,17 +145,53 @@
                     active: active
                 })
             }).then(res => res.json())
-            .then(data => alert(JSON.stringify(data)));
+            .then(member => {
+                let tr = convertMemberToTR(member);
+                document.querySelector("#tblMembers tbody").innerHTML += tr;
+            });
+        }
 
+        function getIdFromEvent(evt) {
+            let id = evt.target.id.split("_")[1];
+            return id;
+        }
+        function onEdit(evt) {
+            let id = getIdFromEvent(evt);
+
+            let td = document.querySelector(`#tr_${id} td:nth-child(2)`)
+            let name = td.innerHTML;
+            td.innerHTML = `<input value="${name}" id="txtName_${id}">`;
+        }
+        function onEditSave(evt) {
+            let id = getIdFromEvent(evt);
+
+            let name = document.querySelector(`#txtName_${id}`).value;
+            fetch(`${url}/${id}`, {
+                method:"PUT", 
+                headers: {
+                    "Content-Type":"application/json"
+                }, 
+                body: JSON.stringify({
+                    name: name, 
+                    email: "", 
+                    active: false
+                })
+            }).then(res => res.json())
+            .then(member => {
+                document.querySelector(`#tr_${id} td:nth-child(2)`).innerHTML = name;
+            });
+        }
+
+        function onCancel(evt) {
+            let id = getIdFromEvent(evt);
+            alert(`cancel_${id}`)
         }
         function onDelete(evt) {
 
             // TODO - change to a modal dialog
             if (confirm("Are you sure?")) {
-
-                console.log(evt);
-    
-                let id = evt.target.id.split("_")[1];
+   
+                let id = getIdFromEvent(evt);
     
                 // delete this member
                 const res = fetch(`${url}/${id}`, {
