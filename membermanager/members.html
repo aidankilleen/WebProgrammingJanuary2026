@@ -44,7 +44,7 @@
                 </button>
 
                 <table id="tblMembers" class="table">
-                    <tbody>
+                    <thead>
                         <tr>
                             <th>Id</th>
                             <th>Name</th>
@@ -52,7 +52,7 @@
                             <th>Active</th>
                             <th>Controls</th>
                         </tr>
-                    </tbody>
+                    </thead>
                     <tbody></tbody>
                 </table>
             </div>
@@ -67,13 +67,38 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Name:<input id="txtName"><br>
-        Email: <input id="txtEmail"><br>
-        Active: <input type="checkbox" id="chkActive">
+        <label class="form-label">Name:</label>
+        <input id="txtName" class="form-control">
+        <label class="form-label">Email:</label>
+        <input id="txtEmail" class="form-control">
+        <div class="form-check">
+        <label class="form-check-label" for="chkActive">Active</label>
+            <input type="checkbox"  class="form-check-input" id="chkActive">
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" id="btnSave" onclick="onSave()">Save changes</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="btnSave" onclick="onSave()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="dlgConfirm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+        
+      </div>
+      <input type="hidden" id="txtIdToDelete">
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="btnConfirm" onclick="onConfirm()">Ok</button>
       </div>
     </div>
   </div>
@@ -108,13 +133,15 @@
                         <button
                             id="btnEditSave_${member.id}"
                             class="btn btn-success btn-sm"
-                            onclick="onEditSave(event)">
+                            onclick="onEditSave(event)"
+                            disabled>
                             Save
                         </button>
                         <button
                             id="btnCancel_${member.id}"
                             class="btn btn-secondary btn-sm"
-                            onclick="onCancel(event)">
+                            onclick="onCancel(event)"
+                            disabled>
                             Cancel
                         </button>
                     </td>
@@ -158,14 +185,29 @@
         function onEdit(evt) {
             let id = getIdFromEvent(evt);
 
-            let td = document.querySelector(`#tr_${id} td:nth-child(2)`)
+            let td = document.querySelector(`#tr_${id} td:nth-child(2)`);
             let name = td.innerHTML;
-            td.innerHTML = `<input value="${name}" id="txtName_${id}">`;
+            td.innerHTML = `<input value="${name}" id="txtName_${id}" data-original-value="${name}">`;
+
+            td = document.querySelector(`#tr_${id} td:nth-child(3)`);
+            let email = td.innerHTML;
+            td.innerHTML = `<input value="${email}" id="txtEmail_${id}" data-original-value="${email}">`;
+        
+            console.log("addeding checkbox");
+            td = document.querySelector(`#tr_${id} td:nth-child(4)`);
+            let active = td.innerHTML == "Active";
+            td.innerHTML = `<input type="checkbox" id="chkActive_${id}" ${active ? "checked" :""}  data-original-value="${active}">`
+        
+            configureButtons(id, true);
         }
+
         function onEditSave(evt) {
             let id = getIdFromEvent(evt);
 
             let name = document.querySelector(`#txtName_${id}`).value;
+            let email = document.querySelector(`#txtEmail_${id}`).value;
+            let active = document.querySelector(`#chkActive_${id}`).checked;
+
             fetch(`${url}/${id}`, {
                 method:"PUT", 
                 headers: {
@@ -173,22 +215,74 @@
                 }, 
                 body: JSON.stringify({
                     name: name, 
-                    email: "", 
-                    active: false
+                    email: email, 
+                    active: active
                 })
             }).then(res => res.json())
             .then(member => {
                 document.querySelector(`#tr_${id} td:nth-child(2)`).innerHTML = name;
+                document.querySelector(`#tr_${id} td:nth-child(3)`).innerHTML = email;
+                document.querySelector(`#tr_${id} td:nth-child(4)`).innerHTML = active ? "Active" : "Inactive";
+
+                configureButtons(id, false);
             });
+        }
+
+        // configure the buttons for member id
+        // when editing the edit and delete buttons are disabled and save and cancel are enabled
+        // when not editing the edit and delete buttons are enabled and save and cancel are disabled
+        function configureButtons(id, editing) {
+            document.getElementById(`btnEdit_${id}`).disabled = editing;
+            document.getElementById(`btnDelete_${id}`).disabled = editing;
+            document.getElementById(`btnEditSave_${id}`).disabled = !editing;
+            document.getElementById(`btnCancel_${id}`).disabled = !editing;
         }
 
         function onCancel(evt) {
             let id = getIdFromEvent(evt);
-            alert(`cancel_${id}`)
+
+            let td = document.querySelector(`#tr_${id} td:nth-child(2)`);
+            let originalName = document.querySelector(`#txtName_${id}`).getAttribute("data-original-value");
+            td.innerHTML = originalName;
+
+            td = document.querySelector(`#tr_${id} td:nth-child(3)`);
+            let originalEmail = document.querySelector(`#txtEmail_${id}`).getAttribute("data-original-value");
+            td.innerHTML = originalEmail;
+
+            td = document.querySelector(`#tr_${id} td:nth-child(4)`);
+            let originalActive = document.querySelector(`#chkActive_${id}`).getAttribute("data-original-value") == "true";
+            td.innerHTML = originalActive ? "Active" : "Inactive";
+
+            configureButtons(id, false);
         }
+
+        function onConfirm() {
+            // read the id from the dialog
+            let id = document.getElementById("txtIdToDelete").value;
+            // delete this member
+            const res = fetch(`${url}/${id}`, {
+                method: "DELETE"
+            }).then(()=>{
+                console.log("deleted");
+
+                let tr= document.getElementById(`tr_${id}`);
+                tr.remove();
+            });
+        }
+
         function onDelete(evt) {
 
             // TODO - change to a modal dialog
+            let id = getIdFromEvent(evt);
+            document.querySelector(`#dlgConfirm .modal-body`).innerHTML = `Delete member ${id}?`;
+            // store the id in the dialog
+            document.getElementById("txtIdToDelete").value = id;
+
+            const confirmModal = new bootstrap.Modal(document.getElementById('dlgConfirm'), {});
+            confirmModal.show();
+
+
+            /*
             if (confirm("Are you sure?")) {
    
                 let id = getIdFromEvent(evt);
@@ -203,6 +297,7 @@
                     tr.remove();
                 });
             }
+                */
 
         }
 
