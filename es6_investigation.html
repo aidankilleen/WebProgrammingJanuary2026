@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>ES6 Investigation</h1>
+
+        <script>
+
+            console.log("ES6 Investigations");
+
+            // use let and const never var
+            //var name = "Aidan";
+            let firstName = "Aidan";
+            
+            function doSomething() {
+                // the var keyword
+                // hoists variable declarations to the start of the
+                // function
+                console.log(value);
+                //console.log(v);
+                var value = 100;
+                //let v = 100
+            }
+            doSomething();
+
+            // destructuring
+            l = [1, 2, 3, 4, 5];
+
+            [a, b, c, d, e] = l;
+
+            console.log(a);
+            console.log(b);
+            console.log(c);
+            console.log(d);
+            console.log(e);
+
+            // ... spread operator
+            [x, y, ...rest] = l;
+
+            console.log(x);
+            console.log(y);
+            console.log(rest);
+
+            l1 = [1,2,3];
+            // you can use the spread operator to copy an array
+            l2 = [...l1];
+
+            l1[0] = 99;
+
+            console.log(l1);
+            console.log(l2);
+
+            // destructuring works with object too
+
+            o = {
+                id: 1,
+                name: "Aidan", 
+                email: "aidan@gmail.com", 
+                active: true
+            };
+            
+            const {name, email, ...others} = o;
+
+            console.log(name);
+            console.log(email);
+            console.log(others);
+
+            // spread operator works with destructuring from objects
+            //const {}
+
+            const {name:n} = o;
+            console.log(n);
+
+
+            // destructuring works with compound objects
+            person = {
+                name: "Alice", 
+                email: "alice@gmail.com", 
+                address: {
+                    number: 15, 
+                    street: "Bailick Road", 
+                    town: "Midleton", 
+                    county: "Cork", 
+                    country: "Ireland"
+                }
+            }
+
+            const {name:personName, address:{country}} = person;
+
+            console.log(personName);
+            console.log(country);
+
+
+            console.log(person.address.country)
+
+
+            let cityName = "Cork";
+            let cityCountry = "Ireland"
+
+            // if you create an object from variables where 
+            // the field name and the variable name are the same
+            // you can leave out the :
+            let city = {
+                cityName: cityName, 
+                cityCountry: cityCountry
+            }
+
+            console.log(city);
+
+            city = {
+                cityName, 
+                cityCountry, 
+                latitude: 51.234323,
+                longitude: 8.534
+            }
+
+            console.log(city);
+
+            console.log(city);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </script>
+    </h1>
+</body>
+</html>

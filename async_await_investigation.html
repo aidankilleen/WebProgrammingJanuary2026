@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Async Await Investigation</h1>
+
+
+    <script>
+        let url = "https://api.acodingtutor.com/members";
+
+        // await operation
+        // make the asynchronous operation appear to be synchronous
+        // this simplifies the code and removes a lot of .then(()=>{}) operations
+        async function getJsonData() {
+
+            console.log("getting data");
+            let data = await fetch(url).then(resp=>resp.json());
+
+            console.log(data);
+            console.log("finished getting data");
+        }
+
+        console.log("starting");
+        getJsonData();
+
+        console.log("finished");
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>

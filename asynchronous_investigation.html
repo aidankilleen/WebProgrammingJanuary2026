@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Asynchronous Investigation</h1>
+
+    <script>
+
+        console.log("starting");
+
+        setTimeout(()=>{
+            console.log("working");
+        }, 1000);
+
+        console.log("finished");
+
+
+        // to get a result from an asynchronous operation
+        // one (almost obsolete) way is to provide a callback
+        function asynchronousOperation(a, b, cb) {
+
+            setTimeout(()=>{
+
+                answer = a * b;
+                cb(answer);
+                //return answer;
+
+            }, 1000);
+        }
+
+        let result = asynchronousOperation(10, 20, answer => {
+            console.log(`the answer = ${answer}`)
+        });
+
+        console.log(`result=${result}`);
+
+        // this can lead to callback in a callback in a callback ...
+
+
+
+        // the promise mechanism formalises and stardises this
+
+
+        function doAsynchronousOperation(a, b) {
+            let p = new Promise((resolve, reject) => {
+
+                // do asynchronous operation here
+                setTimeout(()=>{
+
+                    if (Math.random() > 0.7) {
+                        // simulate something going wrong
+                        reject("something went wrong");
+                    }
+                    let answer = a * b;
+                    resolve(answer);
+                }, 1000);
+            })
+            return p;
+        }
+
+        // doAsynchronousOperation is "thenable" - you can use .then()
+        // any function that returns a promise is "thenable"
+        let pr = doAsynchronousOperation(100, 200)
+
+        pr.then((a) => {
+            console.log(`Asynchronous operation complete answer = ${a}`);
+        }).catch((message)=> console.log(`error:${message}`))
+
+        doAsynchronousOperation(10, 20)
+            .then(answer => console.log(answer))
+            .catch((message)=> console.log(`error:${message}`));
+
+
+
+        // the fetch() function returns a promise
+        // fetch is "thenable"
+        let url = "https://api.acodingtutor.com/members";
+        fetch(url)
+            .then(resp => {
+                console.log("response received");
+                console.log(resp);
+                return resp.json();
+
+            })
+            .catch(err => console.log(err))
+            .then(data=>console.log(data));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+</body>
+</html>
