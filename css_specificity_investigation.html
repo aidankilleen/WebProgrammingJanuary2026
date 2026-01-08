@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+        .container {
+            padding: 10px;
+        }
+        div {
+            background-color: red;
+            width: 200px;
+            height: 200px;
+        }
+        .container div {
+            background-color: green;
+        }
+        #content {
+            background-color: blue;
+        }
+        .container #content {
+            background-color: orange;
+        }
+        .container #content.box {
+            background-color: purple;
+        }
+        div.container #content.box {
+            background-color: white;
+        }
+
+        /* strongly recommended that you don't use !important */
+        #content {
+            background-color:deeppink !important;
+        }
+
+        /*
+
+        <!important><inline><ids><classes><tags>
+
+            <ids><classes><tags> are given scores (i, c, t)
+            the rule with the highest score will be applied
+
+            note: you can see the specificity scores in VSCode and in Developer tools
+
+        */
+
+    </style>
+</head>
+<body>
+    
+    <h1>Specificity Investigation</h1>
+
+    <div class="container">
+        <div id="content" class="box" style="background-color:black">This is a div</div>
+    </div>
+
+    <!-- ids don't have be unique - but please make them unique -->
+    <!--<div id="content">This is also content</div>-->
+
+</body>
+</html>

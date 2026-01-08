@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <style>
+
+        @keyframes spinner {
+            0% { transform: rotate(0deg);}
+            100% { transform: rotate(360deg);}
+        }
+        .box {
+            width: 250px;
+            height: 250px;
+            border: 1px solid black;
+            animation: spinner 1s linear infinite;
+            animation-play-state: paused;
+        }
+
+    </style>
+    <h1>CSS Animation</h1>
+
+    <button id="btnStart" onclick="start()">▶</button><div id="txtCount"></div>
+
+    <div id="box1" class="box"></div>
+
+    <script>
+        let count = 0;
+        document.getElementById("box1").addEventListener("animationiteration", ()=>{
+            document.getElementById("txtCount").innerHTML = `Count:${count++}`;
+        })
+        function start() {
+
+            let box = document.getElementById("box1");
+            let button = document.getElementById("btnStart");
+
+            if (box.style.animationPlayState == "running") {
+                box.style.animationPlayState = "paused";
+                button.innerHTML = "▶";
+            } else {
+                box.style.animationPlayState = "running";
+                button.innerHTML = "⏸";
+            }
+            //let animation-play-state
+        }
+
+    </script>
+</body>
+</html>
