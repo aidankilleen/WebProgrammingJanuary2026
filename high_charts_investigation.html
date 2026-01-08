@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>HighCharts Investigation</h1>
+
+
+    <div id="chartContainer">
+
+
+    </div>
+
+    <script src="https://code.highcharts.com/highcharts.js"> </script>
+
+    <script>
+        Highcharts.chart('chartContainer', {
+            chart: {
+                type: 'line'
+            }, 
+            title: {
+                text:"My First Chart"
+            },
+            xAxis: {
+                categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri']
+            },
+            yAxis: {
+                title: {
+                    text: 'Count'
+                }
+            },
+            series: [
+                {
+                    name: "Joined",
+                    data: [1, 5, 2, 3, 2],
+                }
+            ], 
+            plotOptions: {
+                series:{
+                    point: {
+                        events: {
+                            click: function () {
+                                console.log(this);
+                                alert("clicked")
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+
+</body>
+</html>
