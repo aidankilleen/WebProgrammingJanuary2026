@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #content p:last-child{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>Intersection Observer</h1>
+
+    <div id="content">
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus, eos architecto odit minus ipsam voluptate necessitatibus, expedita cupiditate debitis, neque quis reprehenderit. Excepturi qui id atque, totam numquam in eligendi.</p>
+    <p>Consequuntur, facere rem fugiat et culpa expedita nobis vel perspiciatis. Sint provident explicabo minima obcaecati voluptas, nostrum eius! Sed culpa laborum molestias exercitationem ab illum inventore obcaecati ut pariatur quaerat?</p>
+    <p>Distinctio libero quia animi tenetur odit omnis molestias aut quidem tempora voluptates quae amet sunt, fugit quisquam, sit dolorem deserunt odio id, quasi vitae? Blanditiis, autem? Modi suscipit repudiandae laudantium?</p>
+    <p>Voluptatem, error sint fuga molestias laudantium praesentium, qui explicabo suscipit architecto sapiente quasi? Aliquam at quaerat maxime libero, dolorem quas quam minima et sunt quibusdam cumque, deleniti aut nulla nesciunt!</p>
+    <p>Amet consectetur beatae minima incidunt, quam eos consequatur perspiciatis sit esse adipisci quia mollitia non deleniti, possimus autem cupiditate iste officia aliquid eum, voluptatibus eligendi suscipit molestiae. Repellendus, fugit eum.</p>
+    <p>Voluptates corporis sequi quas magni ratione sit omnis saepe dolore ad porro enim nam perspiciatis amet, necessitatibus maiores, facilis id! Voluptatum dolorem numquam alias rem magnam provident quos, exercitationem dolores!</p>
+    <p>Expedita modi beatae hic voluptatibus qui ea dignissimos unde, quam harum consectetur. Dolorem, perspiciatis dolores? Corrupti, aliquam sint! Tenetur quibusdam dignissimos blanditiis doloremque ratione aperiam quod expedita ipsum velit libero.</p>
+    <p>Veritatis, aut facilis totam aspernatur nam, reiciendis optio velit, temporibus modi qui harum illum reprehenderit architecto rem ducimus culpa est maxime. Quisquam odit odio cum quo eum molestiae dolor et?</p>
+    <p>Corporis eos itaque quos voluptatem libero nisi, esse animi aliquid omnis consequatur doloribus architecto ipsum dignissimos. Qui quaerat, hic vero quibusdam eius cum non, sed accusamus, temporibus laborum adipisci suscipit.</p>
+    <p>Explicabo dicta impedit maxime id reprehenderit, earum dolores at iure, facere enim delectus quidem? Quidem quod quia, mollitia soluta quaerat totam dolore dignissimos minus esse voluptates, accusamus id ipsam numquam?</p>
+    <p>Blanditiis enim dolor explicabo pariatur necessitatibus nobis culpa consequatur nam facere! Harum, beatae. Qui expedita cupiditate ad, totam inventore necessitatibus obcaecati itaque, autem deleniti voluptas quo facilis. Eaque, asperiores aliquam!</p>
+    <p>Aliquam optio fuga iure dolor, perferendis, quia ad quis sunt laborum necessitatibus exercitationem cum obcaecati? Minus dolor hic animi accusamus accusantium similique beatae! Debitis nisi voluptates asperiores, at quos beatae.</p>
+    <p>Earum rerum mollitia cum libero, quidem nihil repudiandae consequuntur ab sequi voluptatibus dolorum id aliquam, minima fugit laborum delectus amet quas aut maiores expedita adipisci nisi. Rerum sapiente qui placeat.</p>
+    <p>Veniam eum veritatis maiores velit eligendi, tempore libero tempora dignissimos omnis accusantium, voluptates delectus eveniet. Consequatur ducimus praesentium voluptatem nulla illum ad saepe officiis. Veniam impedit praesentium tenetur nemo vitae!</p>
+    <p>Suscipit facilis porro blanditiis vitae quod delectus ullam, deserunt aliquid quae ducimus, quibusdam quis aspernatur tenetur vero ipsam sed commodi recusandae consectetur. Ipsum, eligendi unde consectetur praesentium quidem ipsa. Dolore.</p>
+    <p>Recusandae deleniti, possimus provident, autem doloribus, placeat quos soluta omnis tempore dignissimos quisquam accusantium repellat dolores iusto labore voluptatem voluptate? Magni sint quidem laudantium id quas suscipit expedita. Consectetur, enim.</p>
+    <p>Tempore porro, nam fuga voluptatem quis, consectetur cum quam ducimus itaque debitis voluptas corporis totam illum officia provident nisi labore nihil quasi velit molestias perspiciatis temporibus quas. Ad, error autem.</p>
+    <p>Porro, odio. Sed odit quisquam qui quasi facilis nulla natus, nobis earum, laudantium deserunt quae, id quia. Tenetur earum, facere placeat illum maiores omnis, minima fuga optio aut non rerum.</p>
+    <p>Iusto exercitationem quidem consequuntur, odio quia molestias praesentium quisquam libero voluptate commodi maxime ducimus optio, eveniet eligendi, provident cum dolore corporis reprehenderit! Totam corporis obcaecati nulla repellendus asperiores quia beatae.</p>
+    <p>Corrupti cupiditate eaque obcaecati, quas magni nemo reiciendis ipsum similique! Deleniti, expedita fugiat velit temporibus magni magnam incidunt nam quia illum. Debitis labore odio repudiandae exercitationem porro. Explicabo, vel distinctio.</p>
+    </div>
+    <div id="lastItem">Last item</div>
+
+
+    <script>
+        let lastItem = document.getElementById("lastItem");
+
+        const observer = new IntersectionObserver((entries) =>{
+            //console.log("observer activated");
+            //console.log(entries);
+
+            if (entries[0].isIntersecting) {
+                // the observed item is now on the viewport
+                console.log("intersecting");
+
+                // create a paragraph and insert it into the page 
+                // above the last item
+
+                let lastParagraph = document.querySelector("#content p:last-child");
+
+                let newParagraph = document.createElement("p")
+                newParagraph.textContent = "Veniam eum veritatis maiores velit eligendi, tempore libero tempora dignissimos omnis accusantium, voluptates delectus eveniet. Consequatur ducimus praesentium voluptatem nulla illum ad saepe officiis. Veniam impedit praesentium tenetur nemo vitae!";
+
+                lastParagraph.after(newParagraph);
+
+
+            } else {
+                //console.log("not intersecting");
+            }
+        });
+        // intersection observer allows infinite scrolling.
+        observer.observe(lastItem);
+    </script>
+</body>
+</html>
