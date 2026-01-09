@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+        /* CSS variables */
+        :root {
+            --background-colour: lightgreen;
+            --foreground-colour: lightblue;
+            --accent-colour: lightcoral;
+        }
+        /* do not use absolute measurements */
+        /* use relative measurements instead */
+
+        .left {
+            flex-basis: clamp(100px, 25%, 200px);
+            background-color: var(--background-colour);
+        }
+        .main {
+            flex-basis: 100%;
+            font-size: clamp(1em, 10px, 10em);
+            background-color: var(--foreground-colour);
+        }
+        .right {
+            flex-basis: clamp(100px, 10%, 200px);
+            background-color: var(--background-colour);
+        }
+
+        .box {
+            width: clamp(100px, 20%, 200px);
+            height: 10vh;
+            border: 1px solid black;
+            background-color:var(--accent-colour);
+        }
+        .container {
+            display: flex;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 20% 60px 60px;
+            grid-template-rows: 20vh 20vh 60vh;
+        }
+
+        .para mark {
+            background-color: var(--foreground-colour);
+        }
+
+        .print-only {
+            display: none;
+        }
+
+        @media print {
+            .print-only {
+                display: block;
+            }
+            .container {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="print-only">
+        <h1>Printed From www.professional.ie</h1>
+    </div>
+
+
+    <div class="container">
+    <aside class="left">Left</aside>
+    <main class="main">Main</main>
+    <aside class="right">right</aside>
+    </div>
+
+
+    <figure>
+        <img alt="a cute puppy" src="https://picsum.photos/id/237/200/300">
+        <figcaption>This is a dog</figcaption>
+    </figure>
+
+
+    <main class="main">A</main>
+    <div class="box"></div>
+
+
+    <hr>
+
+    <meter min="0" max="10" value="7"></meter><br>
+
+
+    <progress id="pb" value="45" max="100"></progress>
+
+
+    <p>Lorem <abbr title="Central Statistics Office">CSO</abbr> ipsum dolor sit amet <abbr title="Electricity Supply Board">ESB</abbr> consectetur adipisicing elit. Nisi impedit beatae minus error tempora, quam eum. Eum esse voluptatem officia, unde eos quisquam quasi. Autem consequuntur molestias ut ducimus eius?</p>
+
+
+    <p class="para">Lorem ipsum dolor, sit amet <mark>consectetur</mark> adipisicing elit. Numquam, iste rerum minima id repellat molestias ea, deserunt natus unde quas blanditiis! Dolorum cumque fugit suscipit, maxime esse et illo doloremque!</p>
+
+    <button onclick="">+</button>
+
+    <script>
+        let percentage = 0;
+
+        setInterval(()=>{
+
+            document.getElementById('pb').value=percentage++ % 100;
+        }, 100);
+    </script>
+    <hr>
+
+    <h2>DataList</h2>
+<label for="browser">Choose your browser from the list:</label>
+<input list="browsers" name="browser" id="browser">
+
+<datalist id="browsers">
+  <option value="Edge">
+  <option value="Firefox">
+  <option value="Chrome">
+  <option value="Opera">
+  <option value="Safari">
+</datalist>
+
+
+
+    <hr>
+
+    <h2>Native Dialog Element</h2>
+
+    <dialog id="dlgTest">
+        <p>This is a dialog</p>
+
+        <button onclick="document.querySelector('#dlgTest').close()">
+            Close
+        </button>
+    </dialog>
+
+    <button onclick="document.querySelector('#dlgTest').showModal()">
+        Open Dialog
+    </button>
+
+    <hr>
+
+    <details>
+        <summary>Some Fake Latin</summary>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim atque assumenda architecto. Facilis similique qui assumenda! Nesciunt nostrum enim eos totam cum, saepe debitis velit minima? Dolorum, magni! Accusamus, sapiente?</p>
+    </details>
+
+    <hr>
+
+    <div class="grid">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+        <div>6</div>
+        <div>7</div>
+        <div>8</div>
+    </div>
+
+
+
+
+
+
+
+</body>
+</html>

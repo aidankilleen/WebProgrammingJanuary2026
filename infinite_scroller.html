@@ -6,6 +6,34 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
+    <style>
+
+    /* Center the scroller in the page and make it scrollable immediately */
+    #scrollBox {
+      height: 360px;           /* forces a scrollbar container */
+      overflow-y: auto;        /* enables scrolling */
+      border: 1px solid #dee2e6;
+      border-radius: 0.75rem;
+      background: #fff;
+    }
+
+    /* Make list items look tidy */
+    #userList .list-group-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .email {
+      color: #6c757d;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 50%;
+    }
+
+    </style>
 </head>
 <body>
     
@@ -14,8 +42,13 @@
 
         <div id="scrollBox">
 
-            <ul id="userList">
-                <li id="sentinel">Loading...</li>
+            <ul id="userList" class="list-group list-group-flush">
+                <li id="sentinel">
+                    <span class="sentinel-content">
+                        <span class="spinner-border spinner-border-sm"></span>
+                        <span>Loading...</span>
+                    </span>
+                </li>
             </ul>
         </div>
     </main>
@@ -29,30 +62,45 @@
         let page = 1;
         let loading = false;
         let done = false;
-        const PAGESIZE = 10;
+        const PAGESIZE = 20;
 
+        let sentinel = document.getElementById("sentinel");
+        let userList = document.getElementById("userList");
 
         async function loadNextPage() {
 
-            let url = `${baseUrl}/?_page=${page}&_limit=${PAGESIZE}`;
+            let url = `${baseUrl}/?_page=${page}&_limit=${PAGESIZE}&_delay=1000`;
 
             let data = await(await fetch(url)).json();
             console.log(data);
-            console.log(url);
+            if (data.length == 0) {
+                // reached the end of the data
+                // remove sentinel - no more requests
+                sentinel.remove();
+            }
+            // write data to page
+            data.forEach(record=>{
+                let li = document.createElement("li");
+                li.className = "list-group-item";
+
+                const name = document.createElement("div");
+                name.textContent = record.name;
+
+                const email = document.createElement("div");
+                email.textContent = record.email;
+
+                li.appendChild(name);
+                li.appendChild(email);
+                userList.insertBefore(li, sentinel);
+            })
             page++;
         }
 
-
-        let sentinel = document.getElementById("sentinel");
-
         let observer = new IntersectionObserver(async (entries) => {
-
             if (entries[0].isIntersecting) {
                 // sentinel has come into view
-                console.log("sentinel has come into view");
                 await loadNextPage()
             }
-
         });
 
         observer.observe(sentinel);
