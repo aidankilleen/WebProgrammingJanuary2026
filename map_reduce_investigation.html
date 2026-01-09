@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1>Map Reduce Investigation</h1>
+
+
+    <script>
+
+        // add up the numbers
+        let list = [1, 5, 3, 2, 6, 8, 10, 7];
+
+        let answer = list.reduce((runningTotal, current) => {
+            console.log("reducing");
+            console.log(`previous:${runningTotal}`);
+            console.log(`current:${current}`);
+            return runningTotal + current;
+        }, 0);
+
+        console.log(`The sum of the integers is ${answer}`);
+
+
+        let data = ["red", "purple","green", "blue", "red", "orange", "red", "green", "pink"];
+
+        // use reduce to count how many of each colour there are
+        let colourCount = {
+            red: 0, 
+            green: 0, 
+            blue: 0, 
+            orange: 0, 
+            pink: 0, 
+            purple: 0
+        }
+
+        colourCount = data.reduce((runningTotal, colour) => {
+            console.log(colour);
+            console.log(runningTotal);
+
+            runningTotal[colour] += 1;
+            return runningTotal;
+
+        }, colourCount);
+
+
+        console.log(colourCount);
+
+
+        // no need to initialise the colourCount
+        colourCount = data.reduce((runningTotal, colour) => {
+            console.log(runningTotal);
+            console.log(colour);
+            runningTotal[colour] = 
+                runningTotal[colour]==null ? 1 : runningTotal[colour]+1;
+            return runningTotal;
+        }, {});
+
+        // data from an api
+
+        let url = "https://api.acodingtutor.com/sales_records";
+
+        // generate data for a pie chart of my product quantity sales
+        async function processSalesRecords() {
+
+            let data = await(await fetch(url)).json();
+
+            let result = data.reduce((runningTotal, item) => {
+                if (runningTotal[item.Product] == null) {
+                    runningTotal[item.Product] = item.Quantity;
+                } else {
+                    runningTotal[item.Product] += item.Quantity;
+                }
+                return runningTotal
+            }, {});
+            console.log(result);
+
+            // coupling reduce with map gives very powerful technique
+            // add up the total sales for each sales record
+
+            let mappedData = data.map(salesRecord => ({
+                    ...salesRecord, 
+                    LineValue: salesRecord.Quantity * 
+                                salesRecord.Price * 
+                                (1 - salesRecord.Discount / 100)
+                })
+            )
+            console.log(mappedData);
+
+            let salesAnalysis = mappedData.reduce((runningTotal, salesRecord) => {
+
+                if (runningTotal[salesRecord.Product] == null) {
+                    runningTotal[salesRecord.Product] = salesRecord.LineValue;
+                } else {
+                    runningTotal[salesRecord.Product] += salesRecord.LineValue;
+                }
+                return runningTotal;
+            }, {});
+
+            console.log(salesAnalysis);
+
+            // naming the functions can make the code clearer
+            let addLineValueToSalesRecord = salesRecord => ({
+                    ...salesRecord, 
+                    LineValue: salesRecord.Quantity * 
+                                salesRecord.Price * 
+                                (1 - salesRecord.Discount / 100)
+                });
+
+            let totalSalesValueByProduct = (runningTotal, salesRecord) => {
+
+                if (runningTotal[salesRecord.Product] == null) {
+                    runningTotal[salesRecord.Product] = salesRecord.LineValue;
+                } else {
+                    runningTotal[salesRecord.Product] += salesRecord.LineValue;
+                }
+                return runningTotal;
+            }
+
+
+            // redo the calculation with a filter
+            let staplerTotal = data.filter(item=>item.Product=="paper")
+                                    .map(addLineValueToSalesRecord)
+                                    .reduce(totalSalesValueByProduct, {});
+
+            console.log(staplerTotal);
+
+
+            let date = new Date("2023-07-20");
+
+            console.log(date);
+
+            date.getFullYear()
+            // use map to conver the string dates into proper js dates
+            // then we can filter by year / month etc
+
+            mappedData = data.map(item => {
+
+                let { Date:date, ...rest } = item;
+                return {
+                    ...rest, 
+                    date: new Date(date)
+                }
+            }).filter(salesRecord=>salesRecord.date.getFullYear()==2024)
+            
+
+            console.log(mappedData);
+
+            // calculate total sales by year
+            // using multiple maps is ok (be careful!!)
+
+            let totalSalesByYear = (runningTotal, salesRecord) => {
+
+                let year = salesRecord.date.getFullYear();
+
+                runningTotal[year] = 
+                    runningTotal[year] == null ? 
+                    salesRecord.LineValue : 
+                    runningTotal[year] + salesRecord.LineValue;
+
+                return runningTotal;
+
+            }
+
+            let convertDateField = item => {
+
+                let { Date:date, ...rest } = item;
+                return {
+                    ...rest, 
+                    date: new Date(date)
+                }
+            }
+            let analysedData = data.map(convertDateField)
+                            .map(addLineValueToSalesRecord)
+                            .reduce(totalSalesByYear, {});
+            console.log(analysedData);
+        }
+
+        processSalesRecords();
+
+        let sample_record = {
+            "id": "1000",
+            "Product": "paper",
+            "Colour": "indigo",
+            "Quantity": 9,
+            "Price": 2.62,
+            "Discount": 0,
+            "CustomerID": "BLONP",
+            "Date": "2023-07-20"
+        }
+
+        //lineValue = sample_record.Quantity * sample_record.Price - sample_record.Discount
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+
+</body>
+</html>
